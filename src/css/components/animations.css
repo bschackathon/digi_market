@@ -19,3 +19,17 @@ html.is-animating .transition-fade {
     transform: translate3d(0, 0, 0);
   }
 }
+
+/* Style all font awesome icons */
+.fa {
+  padding: 20px;
+  font-size: 50px;
+  width: 50px;
+  text-align: center;
+  text-decoration: none;
+}
+
+/* Add a hover effect if you want */
+.fa:hover {
+  opacity: 0.7;
+}
