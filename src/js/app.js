@@ -56,8 +56,11 @@ App = {
     console.log('Transfer ' + tokenId + ' TT to ' + toAddress);
 
     var myContractInstance;
+    $.ajax({url: "http://localhost:4000/mint?toaddress=" + toAddress + "&tokenid=" + tokenId, success: function(result){
+      alert('Minting submitted for processing!');
+    }});
 
-    web3.eth.getAccounts(function(error, accounts) {
+    /*web3.eth.getAccounts(function(error, accounts) {
       if (error) {
         console.log(error);
       }
@@ -74,7 +77,7 @@ App = {
       }).catch(function(err) {
         console.log(err.message);
       });
-    });
+    }); */
   },
 
   getBalances: function() {
