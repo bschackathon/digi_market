@@ -1,3 +1,5 @@
+//const HDWalletProvider = require("../../node_modules/@truffle/hdwallet-provider");
+
 App = {
   web3Provider: null,
   contracts: {},
@@ -13,7 +15,12 @@ App = {
       web3 = new Web3(web3.currentProvider);
     } else {
       // set the provider you want from Web3.providers
-      App.web3Provider = new Web3.providers.HttpProvider('http://127.0.0.1:7545');
+      //App.web3Provider = new Web3.providers.HttpProvider('http://127.0.0.1:7545');
+      //const Web3HDWalletProvider = require("web3-hdwallet-provider");
+
+      const mnemonic = "";
+      //App.web3Provider = new HDWalletProvider(mnemonic, "https://rinkeby.infura.io/v3/918324bac7924b7ea8bc1f32a9bf3098")
+      App.web3Provider = new Web3.providers.HttpProvider("");
       web3 = new Web3(App.web3Provider);
     }
 
@@ -60,7 +67,7 @@ App = {
       App.contracts.MyContract.deployed().then(function(instance) {
         myContractInstance = instance;
 
-        return myContractInstance.mint(toAddress, tokenId, {from: account, gas: 1000000, gasPrice: 200});
+        return myContractInstance.mint(toAddress, tokenId, {from: "address", gas: 1000000, gasPrice: 200});
       }).then(function(result) {
         alert('Minting Successful!');
         return App.getBalances();
