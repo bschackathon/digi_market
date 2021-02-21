@@ -3,7 +3,7 @@ NFT based marketplace for digital artwork
 
 How to install:
 1. Clone this git repostiory 
-2. In root folder, run command "npm install"
+2. In root folder, run command "npm install".
 
 How to run:
 1. Create a file in root folder with the name secret.json
