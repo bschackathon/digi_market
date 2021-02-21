@@ -393,7 +393,7 @@ table {
 * 1. Turn on discretionary ligatures for larger headings
 */
 h1,
-h2 {
+h2, h4, h5 {
   text-align: center;
 }
 h3 {
