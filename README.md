@@ -1,4 +1,4 @@
-# NFTPlatz
+# Monalisa
 NFT based marketplace for digital artwork
 
 How to install:
