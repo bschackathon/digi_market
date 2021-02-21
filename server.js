@@ -5,8 +5,13 @@ const HDWalletProvider = require("truffle-hdwallet-provider");
 const mnemonic = require("./secret.json").secret;
 var Web3 = require("web3");
 const express = require("express");
+const { request } = require("express");
+require('dotenv').config();
 const app = express();
-const port = 3000;
+const port = 4000;
+
+app.use(express.static('src'));
+console.log(process.env.FROM_ACCOUNT);
 
 var MyContract = TruffleContract(MyContractArtifact);
 var web3Provider = new HDWalletProvider(mnemonic, "https://data-seed-prebsc-2-s3.binance.org:8545")
@@ -19,7 +24,7 @@ app.get('/mint', (req, res) => {
     MyContract.deployed().then(function(instance) {
         myContractInstance = instance;
         console.log(instance);
-        return myContractInstance.mint(req.query.toaddress, req.query.tokenid, {from: req.query.fromaddress, gas: 4600000});
+        return myContractInstance.mint(req.query.toaddress, req.query.tokenid, {from: process.env.FROM_ACCOUNT, gas: 4600000});
         }).then(function(result) {
         console.log('Minting Successful!');
         //return App.getBalances();
