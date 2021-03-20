@@ -1,3 +1,4 @@
 node_modules
 secret.json
 .env
+package-lock.json
