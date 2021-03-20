@@ -1,5 +1,5 @@
 var TruffleContract = require("@truffle/contract");
-let MyContractArtifact = require("./build/contracts/MyContract.json");
+let MonalizaArtifact = require("./build/contracts/Monaliza.json");
 //const HDWalletProvider = require("@truffle/hdwallet-provider");
 const HDWalletProvider = require("truffle-hdwallet-provider");
 const mnemonic = require("./secret.json").secret;
@@ -13,21 +13,19 @@ const port = 4000;
 app.use(express.static('src'));
 console.log(process.env.FROM_ACCOUNT);
 
-var MyContract = TruffleContract(MyContractArtifact);
-var web3Provider = new HDWalletProvider(mnemonic, "https://data-seed-prebsc-2-s3.binance.org:8545")
-//MyContract.setProvider(new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/918324bac7924b7ea8bc1f32a9bf3098"));
-MyContract.setProvider(web3Provider);
+var Monaliza = TruffleContract(MonalizaArtifact);
+var web3Provider = new HDWalletProvider(mnemonic, process.env.RINKEBY_RPC_URL)
+Monaliza.setProvider(web3Provider);
 
 app.get('/mint', (req, res) => {
-    res.send('Hello World!');
+    res.send('Minting started!');
 
-    MyContract.deployed().then(function(instance) {
-        myContractInstance = instance;
+    Monaliza.deployed().then(function(instance) {
+        monalizaInstance = instance;
         console.log(instance);
-        return myContractInstance.mint(req.query.toaddress, req.query.tokenid, {from: process.env.FROM_ACCOUNT, gas: 4600000});
+        return monalizaInstance.mint(req.query.toaddress, req.query.tokenuri, {from: process.env.FROM_ACCOUNT, gas: 4600000});
         }).then(function(result) {
         console.log('Minting Successful!');
-        //return App.getBalances();
         }).catch(function(err) {
         console.log(err.message);
         });

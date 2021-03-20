@@ -1,5 +1,5 @@
-var MyContract = artifacts.require("MyContract");
+var Monaliza = artifacts.require("Monaliza");
 
 module.exports = function(deployer) {
-  deployer.deploy(MyContract);
+  deployer.deploy(Monaliza);
 };

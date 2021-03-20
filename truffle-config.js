@@ -1,8 +1,8 @@
 //const HDWalletProvider = require("@truffle/hdwallet-provider");
 const HDWalletProvider = require("truffle-hdwallet-provider");
 
-const mnemonic = "grunt squirrel judge notable inherit abstract car furnace trophy rely city dress";
-
+const mnemonic = require("./secret.json").secret;
+console.log(mnemonic);
 
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
@@ -15,9 +15,9 @@ module.exports = {
     },
     rinkeby: {
       provider: function() {
-        return new HDWalletProvider(mnemonic, "https://rinkeby.infura.io/v3/918324bac7924b7ea8bc1f32a9bf3098")
+        //return new HDWalletProvider(mnemonic, "https://rinkeby.infura.io/v3/918324bac7924b7ea8bc1f32a9bf3098")
+        return new HDWalletProvider(mnemonic, process.env.RINKEBY_RPC_URL, 0) 
       },
-      from: "0x5Bd46de6E8d4e8Ba0fdd76ACC8d543bA07b58dE5",
       network_id: "*",
       skipDryRun: true,
       timeoutBlocks: 200,
@@ -28,7 +28,6 @@ module.exports = {
       provider: function() {
         return new HDWalletProvider(mnemonic, "https://data-seed-prebsc-2-s3.binance.org:8545")
       },
-      from: "0x5Bd46de6E8d4e8Ba0fdd76ACC8d543bA07b58dE5",
       network_id: 97,
       confirmations: 1,
       timeoutBlocks: 100000,
