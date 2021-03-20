@@ -1,5 +1,5 @@
 # Monaliza
-NFT based marketplace for digital artwork
+Microservice for backend/REST API for NFT based marketplace for digital artwork
 
 How to install:
 1. Clone this git repostiory 
