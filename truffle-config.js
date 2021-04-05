@@ -1,4 +1,5 @@
 //const HDWalletProvider = require("@truffle/hdwallet-provider");
+require('dotenv').config();
 const HDWalletProvider = require("truffle-hdwallet-provider");
 
 const mnemonic = require("./secret.json").secret;
@@ -19,6 +20,7 @@ module.exports = {
         return new HDWalletProvider(mnemonic, process.env.RINKEBY_RPC_URL, 0) 
       },
       network_id: "*",
+      chainId: 4,
       skipDryRun: true,
       timeoutBlocks: 200,
       confirmations: 2 

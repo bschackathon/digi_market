@@ -16,7 +16,7 @@
     "lite-server": "^2.3.0"
   },
   "dependencies": {
-    "@openzeppelin/contracts": "^3.4.0",
+    "@openzeppelin/contracts": "^3.4.1",
     "@truffle/contract": "^4.3.8",
     "@truffle/hdwallet-provider": "^1.2.4",
     "dotenv": "^8.2.0",

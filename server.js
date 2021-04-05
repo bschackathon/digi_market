@@ -1,5 +1,6 @@
 var TruffleContract = require("@truffle/contract");
-let MonalizaArtifact = require("./build/contracts/Monaliza.json");
+let MonalizaArtifact = require("./build/contracts/MonalizaContractFactory.json");
+let MonalizaNFTArtifact = require("./build/contracts/Monaliza.json");
 //const HDWalletProvider = require("@truffle/hdwallet-provider");
 const HDWalletProvider = require("truffle-hdwallet-provider");
 const mnemonic = require("./secret.json").secret;
@@ -14,18 +15,36 @@ app.use(express.static('src'));
 console.log(process.env.FROM_ACCOUNT);
 
 var Monaliza = TruffleContract(MonalizaArtifact);
+var MonalizaNFT = TruffleContract(MonalizaNFTArtifact);
 var web3Provider = new HDWalletProvider(mnemonic, process.env.RINKEBY_RPC_URL)
 Monaliza.setProvider(web3Provider);
 
-app.get('/mint', (req, res) => {
-    res.send('Minting started!');
+app.get('/deploynft', (req, res) => {
+    res.send('NFT contract deployment started!');
+    Monaliza.deployed().then(function(instance) {
+        monalizaInstance = instance;
+        console.log("Initiating deployment of NFT contract");
+        return monalizaInstance.deployNFTContract(req.query.name, req.query.symbol, {from: process.env.FROM_ACCOUNT, gas: 4600000});
+        //return monalizaInstance.mint(req.query.contractaddress, req.query.toaddress, req.query.tokenuri, {from: process.env.FROM_ACCOUNT, gas: 4600000});
+        }).then(function(value) {
+            console.log("NFT contract address " + value.receipt.rawLogs[0].address);
+            console.log(value.receipt.rawLogs[0].address);
+            
+        }).catch(function(err) {
+        console.log(err.message);
+        });
+})
+
+app.get('/mintnft', (req, res) => {
+    res.send('NFT Minting started!');
 
     Monaliza.deployed().then(function(instance) {
         monalizaInstance = instance;
-        console.log(instance);
-        return monalizaInstance.mint(req.query.toaddress, req.query.tokenuri, {from: process.env.FROM_ACCOUNT, gas: 4600000});
-        }).then(function(result) {
-        console.log('Minting Successful!');
+        console.log("Initiating deployment of NFT contract");
+        monalizaInstance.mintNFT(req.query.contractaddress, req.query.toaddress, req.query.tokenuri, {from: process.env.FROM_ACCOUNT, gas: 4600000})
+    }).then(function(result){
+            console.log("NFT minted");
+
         }).catch(function(err) {
         console.log(err.message);
         });
