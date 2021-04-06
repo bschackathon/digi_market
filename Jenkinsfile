@@ -4,7 +4,7 @@ pipeline {
     stage('test') {
       steps {
         echo 'test'
-        kubeconfig(credentialsId: '1', serverUrl: '1', caCertificate: '1')
+        kubeconfig(credentialsId: '1', serverUrl: 'http://test', caCertificate: '1')
       }
     }
 
