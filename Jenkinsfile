@@ -4,9 +4,7 @@ pipeline {
     stage('test') {
       steps {
         echo 'test'
-        sh '''helm ls
-export KUBECONFIG=./kubeconfig
-'''
+        sh 'helm ls'
       }
     }
 
