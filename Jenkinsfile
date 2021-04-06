@@ -4,7 +4,8 @@ pipeline {
     stage('test') {
       steps {
         echo 'test'
-        sh 'kubectl get all'
+        sh '''export KUBECONFIG=~/.kube/config 
+kubectl get all'''
       }
     }
 
