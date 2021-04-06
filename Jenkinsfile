@@ -4,7 +4,7 @@ pipeline {
     stage('test') {
       steps {
         echo 'test'
-        sh '''ls -la
+        sh '''helm install --name my-release stable/jenkins
 export KUBECONFIG=./kubeconfig
 kubectl get all'''
       }
