@@ -4,7 +4,7 @@ pipeline {
     stage('test') {
       steps {
         echo 'test'
-        kubernetesDeploy(kubeConfig: './kubeconfig')
+        kubeconfig(credentialsId: '1', serverUrl: '1', caCertificate: '1')
       }
     }
 
