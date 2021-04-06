@@ -15,6 +15,10 @@ pipeline {
         }
 
         sh 'helm ls'
+        withKubeCredentials() {
+          withKubeConfig()
+        }
+
       }
     }
 
