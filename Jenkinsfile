@@ -4,8 +4,7 @@ pipeline {
     stage('test') {
       steps {
         echo 'test'
-        sh '''kubectl config set-cluster minikube --server=https://127.0.0.1:8443 --insecure-skip-tls-verify=true
-kubectl get all'''
+        sh 'kubectl get all'
       }
     }
 
