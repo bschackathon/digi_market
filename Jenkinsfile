@@ -5,7 +5,7 @@ pipeline {
       steps {
         echo 'test'
         sh '''ls -la
-export KUBECONFIG=/home/sanjeevkumar761/.kube/config
+export KUBECONFIG=./kubeconfig
 kubectl get all'''
       }
     }
