@@ -6,6 +6,10 @@ WORKDIR /app
 COPY ["package.json", "package-lock.json*", "./"]
 
 RUN npm install --production
+cd node_modules/scrypt-for-humans/node_modules/scrypt
+node-gyp configure build
+
+cd /app
 
 COPY . .
 
