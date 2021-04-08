@@ -9,7 +9,7 @@ RUN npm install --production
 cd node_modules/scrypt-for-humans/node_modules/scrypt
 node-gyp configure build
 
-cd /app
+RUN cd /app
 
 COPY . .
 
