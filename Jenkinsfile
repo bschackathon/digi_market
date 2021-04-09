@@ -8,8 +8,9 @@ pipeline {
       }
       steps {
         sh '''docker build --tag contractfactory-5:latest .
-docker tag contractfactory-5:latest saneevkumar761/contractfactory-5:latest
-docker login docker.io -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASSWORD}'''
+docker tag contractfactory-6:latest saneevkumar761/contractfactory-6:latest
+docker login docker.io -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASSWORD}
+docker push saneevkumar761/contractfactory-6:latest'''
       }
     }
 
