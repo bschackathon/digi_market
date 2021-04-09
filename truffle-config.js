@@ -2,8 +2,11 @@
 require('dotenv').config();
 const HDWalletProvider = require("truffle-hdwallet-provider");
 
+const mnemonic = require("/secrets/secret.json").secret;
+const RINKEBY_RPC_URL= require("/secrets/secret.json").rinkeby_rpc_url;
+
 //const mnemonic = require("./secret.json").secret;
-const mnemonic = process.env.MNEMONIC;
+const mnemonic = mnemonic;
 console.log(mnemonic);
 
 module.exports = {
@@ -18,7 +21,7 @@ module.exports = {
     rinkeby: {
       provider: function() {
         //return new HDWalletProvider(mnemonic, "https://rinkeby.infura.io/v3/918324bac7924b7ea8bc1f32a9bf3098")
-        return new HDWalletProvider(mnemonic, process.env.RINKEBY_RPC_URL, 0) 
+        return new HDWalletProvider(mnemonic, RINKEBY_RPC_URL, 0) 
       },
       network_id: "*",
       chainId: 4,
