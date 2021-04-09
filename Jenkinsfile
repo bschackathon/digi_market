@@ -7,7 +7,7 @@ pipeline {
         DOCKERHUB_PASSWORD = 'Hdwj#10590'
       }
       steps {
-        sh '''docker build --tag contractfactory-5:latest .
+        sh '''docker build --tag contractfactory-6:latest .
 docker tag contractfactory-6:latest saneevkumar761/contractfactory-6:latest
 docker login docker.io -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASSWORD}
 docker push saneevkumar761/contractfactory-6:latest'''
