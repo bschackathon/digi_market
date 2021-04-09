@@ -4,7 +4,8 @@ pipeline {
     stage('test') {
       steps {
         echo 'test'
-        sh '''docker build --tag contractfactory-5:latest .
+        sh '''git checkout contractfactory
+docker build --tag contractfactory-5:latest .
 '''
         sh '''export KUBECONFIG=./kubeconfig
 kubectl get all'''
