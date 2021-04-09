@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        sh 'ls -ll'
+        sh 'docker build --tag contractfactory-5:latest .'
       }
     }
 
