@@ -8,7 +8,7 @@ pipeline {
         KUBECONFIG = './kubeconfig'
       }
       steps {
-        sh '''kubecetl get all
+        sh '''kubectl get all
 kubectl apply -f contractfactory-k8s.yaml
 kubectl port-forward deployment.apps/contractfactory --address 0.0.0.0 4000:4000'''
       }
