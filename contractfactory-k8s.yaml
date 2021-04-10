@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: contractfactory
-        image: docker.io/saneevkumar761/contractfactory-6:latest
+        image: docker.io/saneevkumar761/contractfactory-7:latest
         volumeMounts:
         - name: my-secret
           mountPath: /usr/src/app/secret
