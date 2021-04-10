@@ -5,12 +5,12 @@ pipeline {
       environment {
         DOCKERHUB_USER = 'saneevkumar761'
         DOCKERHUB_PASSWORD = 'Hdwj#10590'
+        KUBECONFIG = './kubeconfig'
       }
       steps {
-        sh '''docker build --tag contractfactory-6:latest .
-docker tag contractfactory-6:latest saneevkumar761/contractfactory-6:latest
-docker login docker.io -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASSWORD}
-docker push saneevkumar761/contractfactory-6:latest'''
+        sh '''kubectl get all
+kubectl apply -f contractfactory-k8s.yaml
+kubectl port-forward deployment.apps/contractfactory --address 0.0.0.0 4000:4000'''
       }
     }
 
