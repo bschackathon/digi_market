@@ -17,13 +17,13 @@ spec:
       - name: contractfactory
         image: docker.io/saneevkumar761/contractfactory-6:latest
         volumeMounts:
-        - name: secrets
-          mountPath: /home/sanjeevkumar761/digi_market/secrets
+        - name: my-secret
+          mountPath: /usr/src/app/secret
           readOnly: true
       volumes:
-      - name: secrets
+      - name: my-secret
         secret:
-          secretName: secrets.json
+          secretName: my-secret
 
 ---
 apiVersion: v1

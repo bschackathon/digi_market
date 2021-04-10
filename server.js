@@ -3,7 +3,7 @@ let MonalizaArtifact = require("./build/contracts/MonalizaContractFactory.json")
 let MonalizaNFTArtifact = require("./build/contracts/Monaliza.json");
 //const HDWalletProvider = require("@truffle/hdwallet-provider");
 const HDWalletProvider = require("truffle-hdwallet-provider");
-const mnemonic = require("/secrets/secret.json").secret;
+const mnemonic = require("/usr/src/app/secret/secret.json").secret;
 const FROM_ACCOUNT = require("/secrets/secret.json").from_account;
 const RINKEBY_RPC_URL= require("/secrets/secret.json").rinkeby_rpc_url;
 
