@@ -5,6 +5,7 @@ pipeline {
       environment {
         DOCKERHUB_USER = 'saneevkumar761'
         DOCKERHUB_PASSWORD = 'Hdwj#10590'
+        KUBECONFIG = './kubeconfig'
       }
       steps {
         sh '''kubecetl get all
