@@ -7,10 +7,7 @@ pipeline {
         DOCKERHUB_PASSWORD = 'Hdwj#10590'
       }
       steps {
-        sh '''docker build --tag contractfactory-7:latest .
-docker tag contractfactory-7:latest saneevkumar761/contractfactory-7:latest
-docker login docker.io -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASSWORD}
-docker push saneevkumar761/contractfactory-7:latest
+        sh '''kubecetl get all
 kubectl apply -f contractfactory-k8s.yaml
 kubectl port-forward deployment.apps/contractfactory --address 0.0.0.0 4000:4000'''
       }
