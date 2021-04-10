@@ -15,6 +15,7 @@ docker push saneevkumar761/contractfactory-7:latest
 kubectl get all
 #kubectl create secret generic my-secret --from-file=./secrets/secret.json
 kubectl apply -f contractfactory-k8s.yaml
+sleep 60
 kubectl port-forward deployment.apps/contractfactory --address 0.0.0.0 4000:4000'''
       }
     }
