@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: contractfactory
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      contractfactory: web
+  template:
+    metadata:
+      labels:
+        contractfactory: web
+    spec:
+      containers:
+      - name: contractfactory
+        image: docker.io/saneevkumar761/contractfactory-6:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: contractfactory-entrypoint
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    bb: web
+  ports:
+  - port: 4000
+    targetPort: 4000
+    nodePort: 30001
