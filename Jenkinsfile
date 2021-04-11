@@ -16,6 +16,7 @@ kubectl get all
 #kubectl create secret generic my-secret --from-file=./secrets/secret.json
 kubectl apply -f contractfactory-k8s.yaml'''
         sh '''sleep 15
+su - sanjeevkumar761
 kubectl port-forward deployment.apps/contractfactory --address 0.0.0.0 4000:4000 &
 echo "Port forwarding done"'''
       }
