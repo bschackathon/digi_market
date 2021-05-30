@@ -13,6 +13,10 @@ const mnemonic = require("./secret.json").secret;
 const FROM_ACCOUNT = require("./secret.json").from_account;
 const RINKEBY_RPC_URL= require("./secret.json").rinkeby_rpc_url;
 
+const pinata_api_key = require("./secret.json").pinata_api_key;
+const pinata_api_secret = require("./secret.json").pinata_api_secret;
+
+
 var Web3 = require("web3");
 const express = require("express");
 const { request } = require("express");
@@ -36,6 +40,7 @@ var web3Provider = new HDWalletProvider(mnemonic, RINKEBY_RPC_URL)
 Monaliza.setProvider(web3Provider);
 var monalizaInstance = new Object();
 var n = 1;
+var imgPath = './dunst.jpg';
 
 Monaliza.deployed().then(function(instance) {
     monalizaInstance = instance;
@@ -77,27 +82,82 @@ app.get('/mintnft', (req, res) => {
 
 app.get('/deployandmintnft', (req, res) => {
     //res.send('NFT contract deployment started!');
-    Monaliza.deployed().then(function(instance) {
-        monalizaInstance = instance;
-        console.log("Initiating deployment of NFT contract");
-        return monalizaInstance.deployNFTContract(req.query.name, req.query.symbol, {from: FROM_ACCOUNT, gas: 4600000});
-        //return monalizaInstance.mint(req.query.contractaddress, req.query.toaddress, req.query.tokenuri, {from: process.env.FROM_ACCOUNT, gas: 4600000});
-        }).then(function(value) {
-            console.log("NFT contract address " + value.receipt.rawLogs[0].address);
-            console.log(value.receipt.rawLogs[0].address);
-            res.json({"contractAddress": value.receipt.rawLogs[0].address});
-            //Now mint NFT
-            monalizaInstance.mintNFT(value.receipt.rawLogs[0].address, req.query.toaddress, req.query.tokenuri, {from: process.env.FROM_ACCOUNT, gas: 4600000})
-            .then(function(result){
-                console.log("NFT minted");
-                
-            }).catch(function(err) {
-            console.log(err.message);
+
+        const axios = require('axios');
+        const fs = require('fs');
+        const FormData = require('form-data');
+            const url = `https://api.pinata.cloud/pinning/pinFileToIPFS`;
+        //we gather a local file from the API for this example, but you can gather the file from anywhere
+            let data = new FormData();
+            data.append('file', fs.createReadStream(imgPath));
+        return axios.post(url,
+                data,
+                {
+                    headers: {
+                        'Content-Type': `multipart/form-data; boundary= ${data._boundary}`,
+                        'pinata_api_key': pinata_api_key,
+                        'pinata_secret_api_key': pinata_api_secret
+                    }
+                }
+            ).then(function (response) {
+                //handle response here
+                console.log(response.data);
+
+                Monaliza.deployed().then(function(instance) {
+                    monalizaInstance = instance;
+                    console.log("Initiating deployment of NFT contract");
+                    return monalizaInstance.deployNFTContract(req.query.name, req.query.symbol, {from: FROM_ACCOUNT, gas: 4600000});
+                    //return monalizaInstance.mint(req.query.contractaddress, req.query.toaddress, req.query.tokenuri, {from: process.env.FROM_ACCOUNT, gas: 4600000});
+                    }).then(function(value) {
+                        console.log("NFT contract address " + value.receipt.rawLogs[0].address);
+                        console.log(value.receipt.rawLogs[0].address);
+                        res.json({"contractAddress": value.receipt.rawLogs[0].address});
+                        //Now mint NFT
+                        monalizaInstance.mintNFT(value.receipt.rawLogs[0].address, req.query.toaddress, req.query.tokenuri + "/" + response.data.IpfsHash, {from: process.env.FROM_ACCOUNT, gas: 4600000})
+                        .then(function(result){
+                            console.log("NFT minted");
+                            
+                        }).catch(function(err) {
+                        console.log(err.message);
+                        });
+            
+                    }).catch(function(err) {
+                    console.log(err.message);
+                    });
+
+            }).catch(function (error) {
+                //handle error here
+                console.log(error);
             });
 
-        }).catch(function(err) {
-        console.log(err.message);
+})
+
+app.get('/pinnftfile', (req, res) => {
+        //imports needed for this function
+    const axios = require('axios');
+    const fs = require('fs');
+    const FormData = require('form-data');
+        const url = `https://api.pinata.cloud/pinning/pinFileToIPFS`;
+    //we gather a local file from the API for this example, but you can gather the file from anywhere
+        let data = new FormData();
+        data.append('file', fs.createReadStream('./bs-config.json'));
+    return axios.post(url,
+            data,
+            {
+                headers: {
+                    'Content-Type': `multipart/form-data; boundary= ${data._boundary}`,
+                    'pinata_api_key': "3e1596561b8dad3f06ca",
+                    'pinata_secret_api_key': "ef713e5847f3113a44520040821fb5bfd7d498f8e6f70ed84c1fcc72514b7b9d"
+                }
+            }
+        ).then(function (response) {
+            //handle response here
+            console.log(response.data);
+        }).catch(function (error) {
+            //handle error here
+            console.log(error);
         });
+    
 })
 
 app.listen(port, () => {
